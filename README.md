@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# sleep_sound_counter
-=======
 # sleep_sound_counter
 
 A new Flutter project.
