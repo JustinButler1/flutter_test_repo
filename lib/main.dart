@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import 'pages/skeleton_page.dart';
+import 'providers/list_provider.dart';
 
-void main() => runApp(const AppWidget());
+void main() => runApp(
+      ChangeNotifierProvider(
+        create: (context) => ListProvider(),
+        child: const AppWidget(),
+      ),
+    );
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -10,9 +17,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(context) {
     return const CupertinoApp(
-      // theme: CupertinoThemeData(
-      //   textTheme: CupertinoTextThemeData(textStyle: TextStyle(fontSize: 18)),
-      // ),
+      debugShowCheckedModeBanner: false,
       home: HomePageWidget(),
     );
   }

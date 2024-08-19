@@ -1,50 +1,38 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/list_provider.dart';
 import '../util/enums.dart';
+import '../widgets/counter_list_item.dart';
 
 // ignore: must_be_immutable
 class ListItemDetailsPage extends StatefulWidget {
-  String title;
-  ListItemType type;
-  int count;
-  ListItemDetailsPage(
-      {super.key,
-      required this.title,
-      required this.type,
-      required this.count});
+  CounterListItem item;
+  ListItemDetailsPage({super.key, required this.item});
 
   @override
   State<ListItemDetailsPage> createState() => _ListItemDetailsPageState();
 }
 
 class _ListItemDetailsPageState extends State<ListItemDetailsPage> {
-  int count = 0;
-
-  @override
-  void initState() {
-    count = widget.count;
-    super.initState();
-  }
-
-  Widget _counterBuild(BuildContext context) {
+  Widget _counterBuild(
+      BuildContext context, ListProvider listProvider, CounterListItem item) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text(widget.title),
+          middle: Text(item.title),
         ),
         child: SafeArea(
           child: Center(
               child: Column(children: [
             Text(
-              '$count',
+              item.count.toString(),
               style: const TextStyle(fontSize: 128),
             ),
             Center(
               child: Column(children: [
                 CupertinoButton(
                   onPressed: () {
-                    setState(() {
-                      count += 1;
-                    });
+                    listProvider.increment(item);
                   },
                   child: const Icon(
                     CupertinoIcons.chevron_up,
@@ -53,9 +41,7 @@ class _ListItemDetailsPageState extends State<ListItemDetailsPage> {
                 ),
                 CupertinoButton(
                   onPressed: () {
-                    setState(() {
-                      count -= 1;
-                    });
+                    listProvider.decrement(item);
                   },
                   child: const Icon(
                     CupertinoIcons.chevron_down,
@@ -68,21 +54,34 @@ class _ListItemDetailsPageState extends State<ListItemDetailsPage> {
         ));
   }
 
-  Widget _listCounterBuild(BuildContext context) {
+  Widget _listCounterBuild(
+      BuildContext context, ListProvider listProvider, CounterListItem item) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(widget.title),
+        middle: Text(item.title),
+        trailing: CupertinoButton(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 6.0),
+          onPressed: () {},
+          child: const Icon(CupertinoIcons.create),
+        ),
       ),
-      child: const SafeArea(
-        child: Text('List'),
+      child: SafeArea(
+        child: ListView(
+          children: const [
+            Text('one'),
+            Text('two'),
+            Text('three'),
+          ],
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return (widget.type == ListItemType.countOnly)
-        ? _counterBuild(context)
-        : _listCounterBuild(context);
+    ListProvider listProvider = Provider.of<ListProvider>(context);
+    return (widget.item.type == ListItemType.countOnly)
+        ? _counterBuild(context, listProvider, widget.item)
+        : _listCounterBuild(context, listProvider, widget.item);
   }
 }

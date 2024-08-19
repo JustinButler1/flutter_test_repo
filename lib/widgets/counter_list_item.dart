@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../pages/counter_details.dart';
+import '../providers/list_provider.dart';
 import '../util/enums.dart';
 
 // ignore: must_be_immutable
@@ -19,10 +21,10 @@ class CounterListItem extends StatefulWidget {
 }
 
 class _CounterListItemState extends State<CounterListItem> {
-  bool isEditing = false;
-
   @override
   Widget build(BuildContext context) {
+    ListProvider listProvider = Provider.of<ListProvider>(context);
+    bool isEditing = listProvider.isEditing;
     return CupertinoButton(
         padding: EdgeInsets.zero,
         onPressed: (isEditing)
@@ -30,10 +32,7 @@ class _CounterListItemState extends State<CounterListItem> {
             : () {
                 Navigator.of(context)
                     .push(CupertinoPageRoute(builder: (context) {
-                  return ListItemDetailsPage(
-                      title: widget.title,
-                      type: widget.type,
-                      count: widget.count);
+                  return ListItemDetailsPage(item: widget);
                 }));
               },
         child: Container(
@@ -47,7 +46,9 @@ class _CounterListItemState extends State<CounterListItem> {
               children: [
                 if (isEditing)
                   CupertinoButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        listProvider.removeCategory(widget);
+                      },
                       child: Container(
                           alignment: Alignment.center,
                           child: const Icon(CupertinoIcons.minus_circle,
