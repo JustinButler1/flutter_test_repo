@@ -12,7 +12,7 @@ class CounterListItem extends StatefulWidget {
   int count = 0;
   List<String> items = [
     "Bruhhh that was so cute girlll",
-    "mmmm hmmmm hmmm",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacus odio, bibendum volutpat aliquet sed, congue eu lacus. Quisque euismod, ex nec euismod aliquet, sem metus fermentum sapien, nec tempor mi lectus.",
     "If you're gonna disrespect me then leave",
     "Fine ill just find someone else to do it for me."
   ];
@@ -34,6 +34,14 @@ class _CounterListItemState extends State<CounterListItem> {
 
   void removeListItem(String text) {
     widget.items.remove(text);
+  }
+
+  @override
+  void initState() {
+    widget.count = (widget.type == ListItemType.countOnly)
+        ? widget.count
+        : widget.items.length;
+    super.initState();
   }
 
   @override

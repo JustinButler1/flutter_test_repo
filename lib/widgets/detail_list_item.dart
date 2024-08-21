@@ -21,14 +21,15 @@ class _DetailListItemState extends State<DetailListItem> {
     ListProvider listProvider = Provider.of<ListProvider>(context);
     bool isEditing = listProvider.isEditing;
     return CupertinoButton(
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.only(top: 1.0),
       onPressed: (isEditing)
           ? null
           : () {
               // TODO: Go to text editing page
             },
       child: Container(
-        height: 80.0,
+        height: 60.0,
+        width: MediaQuery.of(context).size.width,
         decoration:
             const BoxDecoration(color: Color.fromARGB(32, 106, 106, 106)),
         child: Padding(
@@ -45,14 +46,15 @@ class _DetailListItemState extends State<DetailListItem> {
                             color: CupertinoColors.destructiveRed))),
               const SizedBox(width: 10),
               Expanded(
-                  child: IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(widget.text, style: const TextStyle(fontSize: 12)),
-                  ],
+                child: Text(
+                  widget.text,
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 24,
+                  ),
                 ),
-              )),
+              ),
             ],
           ),
         ),
