@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../util/enums.dart';
+import '../util/list_item_type.dart';
 import '../widgets/counter_list_item.dart';
 
 class ListProvider extends ChangeNotifier {
@@ -12,11 +12,11 @@ class ListProvider extends ChangeNotifier {
   ];
   bool isEditing = true;
 
-  void createCategory(String title, ListItemType type) {
+  void createCategory(String title, String type) {
     countCategories.add(
       CounterListItem(
         title: title,
-        type: type,
+        type: listItemTypeFromString(type),
         count: 0,
       ),
     );

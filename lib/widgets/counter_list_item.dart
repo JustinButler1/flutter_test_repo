@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../pages/counter_details.dart';
 import '../providers/list_provider.dart';
-import '../util/enums.dart';
+import '../util/list_item_type.dart';
 
 // ignore: must_be_immutable
 class CounterListItem extends StatefulWidget {
@@ -80,11 +80,3 @@ class _CounterListItemState extends State<CounterListItem> {
         ));
   }
 }
-
-// void navigation(String pageTitle, ListItemType type, BuildContext context) {
-//   Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
-//     return (type == ListItemType.countOnly)
-//         ? CounterDetails(title: pageTitle)
-//         : null;
-//   }));
-// }

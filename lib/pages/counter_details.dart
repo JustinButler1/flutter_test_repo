@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/list_provider.dart';
-import '../util/enums.dart';
+import '../util/list_item_type.dart';
 import '../widgets/counter_list_item.dart';
 
 // ignore: must_be_immutable

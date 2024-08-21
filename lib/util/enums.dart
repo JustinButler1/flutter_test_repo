@@ -1,1 +1,0 @@
-enum ListItemType { countOnly, nestedList }
