@@ -33,6 +33,8 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => CupertinoPopupSurface(
             child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
+                TextEditingController _titleController =
+                    TextEditingController();
                 return Container(
                   height: 400,
                   color: CupertinoColors.white,
@@ -55,7 +57,17 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               CupertinoButton(
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () {
+                                  String input = _titleController.text;
+                                  if (input.isEmpty) {
+                                    return;
+                                  }
+                                  listProvider.createCategory(
+                                    input,
+                                    selectedListType,
+                                  );
+                                  Navigator.pop(context);
+                                },
                                 child: const Text(
                                   'Done',
                                   style: TextStyle(
@@ -77,6 +89,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         CupertinoTextFormFieldRow(
+                          controller: _titleController,
                           decoration: const BoxDecoration(
                             color: CupertinoColors.systemGrey6,
                             borderRadius: BorderRadius.all(

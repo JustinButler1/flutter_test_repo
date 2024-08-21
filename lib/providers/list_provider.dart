@@ -10,7 +10,7 @@ class ListProvider extends ChangeNotifier {
     CounterListItem(title: "Ina", count: 16, type: ListItemType.countOnly),
     CounterListItem(title: "Fa", count: 6, type: ListItemType.countOnly),
   ];
-  bool isEditing = true;
+  bool isEditing = false;
 
   void createCategory(String title, String type) {
     countCategories.add(

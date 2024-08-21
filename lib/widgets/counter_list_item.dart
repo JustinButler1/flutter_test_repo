@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/counter_details.dart';
+import '../pages/list_item_details_page.dart';
 import '../providers/list_provider.dart';
 import '../util/list_item_type.dart';
 
@@ -10,17 +10,32 @@ class CounterListItem extends StatefulWidget {
   String title;
   ListItemType type;
   int count = 0;
-  CounterListItem(
-      {super.key,
-      required this.title,
-      required this.type,
-      required this.count});
+  List<String> items = [
+    "Bruhhh that was so cute girlll",
+    "mmmm hmmmm hmmm",
+    "If you're gonna disrespect me then leave",
+    "Fine ill just find someone else to do it for me."
+  ];
+  CounterListItem({
+    super.key,
+    required this.title,
+    required this.type,
+    required this.count,
+  });
 
   @override
   State<CounterListItem> createState() => _CounterListItemState();
 }
 
 class _CounterListItemState extends State<CounterListItem> {
+  void addListItem(String text) {
+    widget.items.add(text);
+  }
+
+  void removeListItem(String text) {
+    widget.items.remove(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     ListProvider listProvider = Provider.of<ListProvider>(context);
