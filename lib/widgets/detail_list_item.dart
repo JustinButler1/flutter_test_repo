@@ -6,11 +6,9 @@ import '../providers/list_provider.dart';
 // ignore: must_be_immutable
 class DetailListItem extends StatefulWidget {
   String text;
-  Function onDelete;
   DetailListItem({
     super.key,
     required this.text,
-    required this.onDelete,
   });
 
   @override
@@ -24,7 +22,11 @@ class _DetailListItemState extends State<DetailListItem> {
     bool isEditing = listProvider.isEditing;
     return CupertinoButton(
       padding: const EdgeInsets.only(top: 1.0),
-      onPressed: (isEditing) ? null : () {},
+      onPressed: (isEditing)
+          ? null
+          : () {
+              // TODO: Go to text editing page
+            },
       child: Container(
         height: 60.0,
         width: MediaQuery.of(context).size.width,
@@ -37,9 +39,7 @@ class _DetailListItemState extends State<DetailListItem> {
             children: [
               if (isEditing)
                 CupertinoButton(
-                    onPressed: () {
-                      widget.onDelete();
-                    },
+                    onPressed: () {},
                     child: Container(
                         alignment: Alignment.center,
                         child: const Icon(CupertinoIcons.minus_circle,

@@ -28,6 +28,14 @@ class CounterListItem extends StatefulWidget {
 }
 
 class _CounterListItemState extends State<CounterListItem> {
+  void addListItem(String text) {
+    widget.items.add(text);
+  }
+
+  void removeListItem(String text) {
+    widget.items.remove(text);
+  }
+
   @override
   void initState() {
     widget.count = (widget.type == ListItemType.countOnly)
@@ -45,13 +53,10 @@ class _CounterListItemState extends State<CounterListItem> {
         onPressed: (isEditing)
             ? null
             : () {
-                Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (context) {
-                      return ListItemDetailsPage(item: widget);
-                    },
-                  ),
-                );
+                Navigator.of(context)
+                    .push(CupertinoPageRoute(builder: (context) {
+                  return ListItemDetailsPage(item: widget);
+                }));
               },
         child: Container(
           height: 80.0,

@@ -63,81 +63,25 @@ class _ListItemDetailsPageState extends State<ListItemDetailsPage> {
       BuildContext context, ListProvider listProvider, CounterListItem item) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-          middle: Center(child: Text(item.title)),
-          trailing: CupertinoButton(
-            padding: const EdgeInsets.only(bottom: 6.0),
-            onPressed: () {
-              listProvider.toggleEditing();
-            },
-            child: (listProvider.isEditing)
-                ? const Text('Done',
-                    style: TextStyle(fontWeight: FontWeight.bold))
-                : const Icon(CupertinoIcons.create),
-          )),
+        middle: Text(item.title),
+        trailing: CupertinoButton(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 6.0),
+          onPressed: () {
+            listProvider.toggleEditing();
+          },
+          child: (listProvider.isEditing)
+              ? const Text('Done',
+                  style: TextStyle(fontWeight: FontWeight.bold))
+              : const Icon(CupertinoIcons.create),
+        ),
+      ),
       child: SafeArea(
         child: Center(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Row(
-                  mainAxisAlignment: (listProvider.isEditing)
-                      ? MainAxisAlignment.end
-                      : MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      item.items.length.toString(),
-                      style: const TextStyle(fontSize: 128),
-                    ),
-                    if (listProvider.isEditing)
-                      CupertinoButton(
-                        padding: const EdgeInsets.only(bottom: 6.0),
-                        onPressed: () => showCupertinoDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              TextEditingController newTextController =
-                                  TextEditingController();
-                              return CupertinoAlertDialog(
-                                title: const Text('Add an Item'),
-                                content: CupertinoTextField(
-                                  controller: newTextController,
-                                  maxLines: 5,
-                                ),
-                                actions: [
-                                  CupertinoDialogAction(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'Cancel',
-                                      style: TextStyle(
-                                          color:
-                                              CupertinoColors.destructiveRed),
-                                    ),
-                                  ),
-                                  CupertinoDialogAction(
-                                    onPressed: () {
-                                      if (newTextController.text.isEmpty) {
-                                        return;
-                                      }
-                                      setState(
-                                        () => item.items
-                                            .add(newTextController.text),
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Done'),
-                                  ),
-                                ],
-                              );
-                            }),
-                        child: const Icon(
-                          CupertinoIcons.add,
-                          size: 128,
-                        ),
-                      ),
-                  ],
-                ),
+              Text(
+                item.items.length.toString(),
+                style: const TextStyle(fontSize: 128),
               ),
               Expanded(
                 child: SizedBox(
@@ -145,14 +89,7 @@ class _ListItemDetailsPageState extends State<ListItemDetailsPage> {
                   child: ListView.builder(
                     itemCount: item.items.length,
                     itemBuilder: (context, int index) {
-                      return DetailListItem(
-                        text: item.items[index],
-                        onDelete: () {
-                          setState(() {
-                            item.items.removeAt(index);
-                          });
-                        },
-                      );
+                      return DetailListItem(text: item.items[index]);
                     },
                   ),
                 ),
